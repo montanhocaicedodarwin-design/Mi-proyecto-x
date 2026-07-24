@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi primera página web</title>
+  <meta name="description" content="Plantilla web moderna y accesible para presentar servicios, proyectos y recibir mensajes de contacto.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="Mi primera página web">
+  <meta property="og:description" content="Plantilla web moderna y accesible para presentar servicios, proyectos y recibir mensajes de contacto.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio">Mi proyecto</a>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <nav class="nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Bienvenido</p>
+          <h1>Tu primera página web profesional</h1>
+          <p>Una web moderna y fácil de personalizar que funciona bien en móviles, tablets y escritorios. Ideal para aprender, presentar tu trabajo y compartir tus ideas.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#servicios">Ver servicios</a>
+            <a class="button secondary" href="#contacto">Contáctame</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-content">
+            <h2>Diseño claro y funcional</h2>
+            <p>Convierte esta plantilla en tu propio sitio web con pocos cambios de texto y colores.</p>
+            <ul>
+              <li>Interfaz amigable</li>
+              <li>Componentes reutilizables</li>
+              <li>Listo para mejorar</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="servicios" class="section section-alt">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Servicios</p>
+          <h2>Lo que puedo ofrecerte</h2>
+          <p>Un sitio web completo con estructura clara, estilo moderno y contenido pensado para tu audiencia.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card feature-card">
+            <h3>Desarrollo web</h3>
+            <p>Crea páginas estáticas o un sitio personal completo con HTML, CSS y mejoras simples de JavaScript.</p>
+          </article>
+          <article class="card feature-card">
+            <h3>Diseño adaptable</h3>
+            <p>Un diseño que responde bien en pantallas pequeñas y grandes, manteniendo legibilidad y buen espacio.</p>
+          </article>
+          <article class="card feature-card">
+            <h3>Edición rápida</h3>
+            <p>Modifica textos, imágenes o colores en pocos pasos para personalizarlo con tu marca o estilo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Proyectos</p>
+          <h2>Ejemplos de ideas</h2>
+          <p>Esta página puede ser la base para un portafolio, una página de servicios o una minicampaña personal.</p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <h3>Portafolio personal</h3>
+            <p>Muestra tus habilidades, trabajos y contacto en una sola página visual y ordenada.</p>
+          </article>
+          <article class="project-card">
+            <h3>Landing simple</h3>
+            <p>Convierte visitantes en clientes con una presentación clara de servicios y una llamada a la acción.</p>
+          </article>
+          <article class="project-card">
+            <h3>Presentación de eventos</h3>
+            <p>Usa secciones para explicar el evento, su agenda, beneficios y cómo registrarse.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section section-alt">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Contacto</p>
+          <h2>¿Quieres continuar?</h2>
+          <p>Escribe tus datos y el mensaje para empezar a crear tu sitio web con estilo propio.</p>
+        </div>
+
+        <div class="contact-grid">
+          <form id="contact-form" class="contact-form">
+            <label>
+              Nombre
+              <input type="text" name="nombre" placeholder="Tu nombre" required>
+            </label>
+            <label>
+              Correo electrónico
+              <input type="email" name="email" placeholder="tu@correo.com" required>
+            </label>
+            <label>
+              Mensaje
+              <textarea name="mensaje" rows="5" placeholder="Cuéntame tu idea" required></textarea>
+            </label>
+            <button type="submit" class="button primary">Enviar mensaje</button>
+            <p id="form-message" class="form-message" aria-live="polite"></p>
+          </form>
+
+          <div class="contact-info card">
+            <h3>Información</h3>
+            <p>Este sitio está listo para personalizarse. Cambia el texto, las secciones o los colores cuando quieras.</p>
+            <ul>
+              <li><strong>Ubicación:</strong> Proyecto local</li>
+              <li><strong>Enfoque:</strong> HTML y CSS accesible</li>
+              <li><strong>Meta:</strong> aprendizaje práctico</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2026 Mi-proyecto-x. Página creada como ejemplo de diseño web.</p>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

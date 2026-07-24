@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Mi proyecto</title>
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; margin: 0; background: #f4f7ff; color: #111827; }
+    .container { width: min(960px, calc(100% - 2rem)); margin: 0 auto; padding: 2rem 0; }
+    .card { background: #ffffff; border-radius: 24px; box-shadow: 0 24px 56px rgba(15, 23, 42, 0.08); padding: 2rem; }
+    h1,h2 { margin-top: 0; }
+    label { display: block; margin-bottom: 1rem; font-weight: 600; }
+    input { width: 100%; padding: 0.95rem 1rem; border: 1px solid #d1d5db; border-radius: 14px; }
+    button { padding: 1rem 1.5rem; border: none; border-radius: 999px; background: #4f46e5; color: #ffffff; font-weight: 700; cursor: pointer; }
+    .message { margin-top: 1rem; }
+    .contacts { margin-top: 2rem; display: grid; gap: 1rem; }
+    .contact-card { border: 1px solid #e5e7eb; border-radius: 18px; padding: 1rem; background: #f9fafb; }
+    .contact-card p { margin: 0.35rem 0; }
+    .contact-card button { margin-top: 1rem; background: #dc2626; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Panel de administración</h1>
+      <p>Ingresa la contraseña de administrador para ver y borrar contactos.</p>
+      <form id="login-form">
+        <label>
+          Contraseña de administrador
+          <input type="password" id="admin-password" required>
+        </label>
+        <button type="submit">Entrar</button>
+      </form>
+      <p id="login-message" class="message"></p>
+    </div>
+
+    <div class="card" id="contacts-card" style="display:none;">
+      <h2>Contactos recibidos</h2>
+      <div id="contacts-list" class="contacts"></div>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const loginMessage = document.getElementById('login-message');
+    const contactsCard = document.getElementById('contacts-card');
+    const contactsList = document.getElementById('contacts-list');
+
+    let adminToken = null;
+
+    async function loadContacts() {
+      if (!adminToken) return;
+
+      const response = await fetch('/api/contacts', {
+        headers: { 'x-admin-token': adminToken }
+      });
+
+      if (!response.ok) {
+        loginMessage.textContent = 'No autorizado o token inválido.';
+        return;
+      }
+
+      const contacts = await response.json();
+      contactsList.innerHTML = contacts.map(contact => `
+        <div class="contact-card">
+          <p><strong>ID:</strong> ${contact.id}</p>
+          <p><strong>Nombre:</strong> ${contact.nombre}</p>
+          <p><strong>Email:</strong> ${contact.email}</p>
+          <p><strong>Mensaje:</strong> ${contact.mensaje}</p>
+          <p><strong>Fecha:</strong> ${new Date(contact.fecha).toLocaleString()}</p>
+          <button onclick="deleteContact(${contact.id})">Eliminar</button>
+        </div>
+      `).join('');
+    }
+
+    async function deleteContact(id) {
+      if (!confirm('¿Eliminar este contacto?')) return;
+      const response = await fetch(`/api/contacts/${id}`, {
+        method: 'DELETE',
+        headers: { 'x-admin-token': adminToken }
+      });
+
+      if (response.ok) {
+        await loadContacts();
+      } else {
+        loginMessage.textContent = 'Error al eliminar el contacto.';
+      }
+    }
+
+    loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const password = document.getElementById('admin-password').value;
+      loginMessage.textContent = '';
+
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        adminToken = result.token;
+        contactsCard.style.display = 'block';
+        loginMessage.textContent = 'Acceso concedido. Cargando contactos...';
+        loginMessage.style.color = '#10b981';
+        await loadContacts();
+      } else {
+        loginMessage.textContent = result.error || 'Acceso denegado.';
+        loginMessage.style.color = '#dc2626';
+      }
+    });
+  </script>
+</body>
+</html>
